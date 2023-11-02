@@ -1,51 +1,118 @@
 #include "binary_trees.h"
 
 /**
+ * create_new_node - Creates a new node in a linked list
+ * @node: Pointer to the node to be created
+ * Return: The created node
+ */
+link_t *create_new_node(binary_tree_t *node)
+{
+	link_t *new_node;
+
+	new_node =  malloc(sizeof(link_t));
+	if (new_node == NULL)
+	{
+		return (NULL);
+	}
+	new_node->node = node;
+	new_node->next = NULL;
+
+	return (new_node);
+}
+
+/**
+ * free_linked_list - Frees the nodes in the linked list
+ * @head: Head node of the linked list
+ */
+void free_linked_list(link_t *head)
+{
+	link_t *temp_node;
+
+	while (head)
+	{
+		temp_node = head->next;
+		free(head);
+		head = temp_node;
+	}
+}
+
+/**
+ * push_node - Pushes a node into the stack
+ * @node: Pointer to the node of the tree
+ * @head: Head node in the stack
+ * @tail: Tail node in the stack
+ */
+void push_node(binary_tree_t *node, link_t *head, link_t **tail)
+{
+	link_t *new_node;
+
+	new_node = create_new_node(node);
+	if (new_node == NULL)
+	{
+		free_linked_list(head);
+		exit(1);
+	}
+	(*tail)->next = new_node;
+	*tail = new_node;
+}
+
+/**
+ * pop_node - Pops a node from the stack
+ * @head: Head node in the stack
+ */
+void pop_node(link_t **head)
+{
+	link_t *temp_node;
+
+	temp_node = (*head)->next;
+	free(*head);
+	*head = temp_node;
+}
+
+/**
  * binary_tree_is_complete - Checks if a binary tree is complete
- * @tree: A pointer to the root node of the tree to check
- *
- * Return: 1 if the tree is complete, 0 otherwise
+ * @tree: Pointer to the node of the tree
+ * Return: 1 if the tree is complete, 0 if it is not
  */
 int binary_tree_is_complete(const binary_tree_t *tree)
 {
-    if (!tree)
-        return (0);
+	link_t *head, *tail;
+	int flag = 0;
 
-    if (!check_complete(tree, 0, count_nodes(tree)))
-        return (0);
-    return (1);
+	if (tree == NULL)
+	{
+		return (0);
+	}
+	head = tail = create_new_node((binary_tree_t *)tree);
+	if (head == NULL)
+	{
+		exit(1);
+	}
+	while (head != NULL)
+	{
+		if (head->node->left != NULL)
+		{
+			if (flag == 1)
+			{
+				free_linked_list(head);
+				return (0);
+			}
+			push_node(head->node->left, head, &tail);
+		}
+		else
+			flag = 1;
+		if (head->node->right != NULL)
+		{
+			if (flag == 1)
+			{
+				free_linked_list(head);
+				return (0);
+			}
+			push_node(head->node->right, head, &tail);
+		}
+		else
+			flag = 1;
+		pop_node(&head);
+	}
+	return (1);
 }
-
-/**
- * count_nodes - Counts the total number of nodes in a binary tree
- * @tree: A pointer to the root node of the tree to count
- *
- * Return: The total number of nodes
- */
-size_t count_nodes(const binary_tree_t *tree)
-{
-    if (!tree)
-        return (0);
-    return (1 + count_nodes(tree->left) + count_nodes(tree->right));
-}
-
-/**
- * check_complete - Checks if a binary tree is complete recursively
- * @tree: A pointer to the root node of the tree to check
- * @index: The index of the current node
- * @nodes: The total number of nodes in the tree
- *
- * Return: 1 if the tree is complete, 0 otherwise
- */
-int check_complete(const binary_tree_t *tree, size_t index, size_t nodes)
-{
-    if (!tree)
-        return (1);
-
-    if (index >= nodes)
-        return (0);
-
-    return (check_complete(tree->left, 2 * index + 1, nodes) &&
-            check_complete(tree->right, 2 * index + 2, nodes));
-}
-

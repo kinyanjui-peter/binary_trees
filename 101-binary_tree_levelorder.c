@@ -49,7 +49,7 @@ void linked_node(link_t **head, const binary_tree_t *tree, size_t level)
 	new_node = malloc(sizeof(link_t));
 	if (new_node == NULL)
 	{
-		return; // Unable to allocate memory
+		return;/* Unable to allocate memory*/
 	}
 	new_node->n = level;
 	new_node->node = tree;
@@ -71,7 +71,8 @@ void linked_node(link_t **head, const binary_tree_t *tree, size_t level)
 }
 
 /**
- * recursion - Traverse the complete tree and store each node in the linked_node function
+ * recursion - Traverse the complete tree and store each node in the
+ * linked_node function
  * @head: Pointer to the head of the linked list
  * @tree: Node to check
  * Return: Nothing; it affects the pointer

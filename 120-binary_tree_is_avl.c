@@ -8,14 +8,14 @@
  */
 int tree_height(const binary_tree_t *tree)
 {
-    int left_height, right_height;
+	int left_height, right_height;
 
-    if (tree == NULL)
-        return (0);
-    left_height = tree_height(tree->left);
-    right_height = tree_height(tree->right);
+	if (tree == NULL)
+		return (0);
+	left_height = tree_height(tree->left);
+	right_height = tree_height(tree->right);
 
-    return (1 + ((left_height > right_height) ? left_height : right_height));
+	return (1 + ((left_height > right_height) ? left_height : right_height));
 }
 
 /**
@@ -27,16 +27,16 @@ int tree_height(const binary_tree_t *tree)
  */
 int is_binary_search_tree(const binary_tree_t *tree, int *prev)
 {
-    if (tree == NULL)
-        return (1);
-    if (!is_binary_search_tree(tree->left, prev))
-        return (0);
-    if (*prev >= tree->n)
-        return (0);
+	if (tree == NULL)
+		return (1);
+	if (!is_binary_search_tree(tree->left, prev))
+		return (0);
+	if (*prev >= tree->n)
+		return (0);
 
-    *prev = tree->n;
+	*prev = tree->n;
 
-    return (is_binary_search_tree(tree->right, prev));
+	return (is_binary_search_tree(tree->right, prev));
 }
 
 /**
@@ -47,20 +47,20 @@ int is_binary_search_tree(const binary_tree_t *tree, int *prev)
  */
 int binary_tree_is_avl(const binary_tree_t *tree)
 {
-    int left_height, right_height, balance_factor;
-    int prev = INT_MIN;
+	int left_height, right_height, balance_factor;
+	int prev = INT_MIN;
 
-    if (tree == NULL)
-        return (0);
+	if (tree == NULL)
+		return (0);
 
-    if (!is_binary_search_tree(tree, &prev))
-        return (0);
+	if (!is_binary_search_tree(tree, &prev))
+		return (0);
 
-    left_height = tree_height(tree->left);
-    right_height = tree_height(tree->right);
-    balance_factor = left_height - right_height;
+	left_height = tree_height(tree->left);
+	right_height = tree_height(tree->right);
+	balance_factor = left_height - right_height;
 
-    return ((balance_factor >= -1 && balance_factor <= 1) &&
-            binary_tree_is_avl(tree->left) &&
-            binary_tree_is_avl(tree->right));
+	return ((balance_factor >= -1 && balance_factor <= 1) &&
+	binary_tree_is_avl(tree->left) &&
+	binary_tree_is_avl(tree->right));
 }

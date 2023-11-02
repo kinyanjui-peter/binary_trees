@@ -26,7 +26,8 @@ void balance_factor(avl_t **tree)
 }
 
 /**
- * get_successor - Get the next successor, i.e., the minimum node in the right subtree
+ * get_successor - Get the next successor, i.e.,
+ * the minimum node in the right subtree
  * @node: Tree node to check
  *
  * Return: The minimum value of this tree

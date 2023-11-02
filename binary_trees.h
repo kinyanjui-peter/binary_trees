@@ -76,5 +76,6 @@ void binary_tree_levelorder_helper(const binary_tree_t *tree, void (*func)(int),
 size_t count_nodes(const binary_tree_t *tree);
 int check_complete(const binary_tree_t *tree, size_t index, size_t nodes);
 bst_t *bst_remove(bst_t *root, int value);
+int is_binary_search_tree(const binary_tree_t *tree, int *prev);
 
 #endif /*BINARY_TREES_H*/

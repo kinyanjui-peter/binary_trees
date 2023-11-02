@@ -2,8 +2,8 @@
 
 /**
  * is_tree_perfect - Checks if a binary tree is perfect.
- * A perfect tree has the same number of levels in the left and right subtrees, 
- * and each node has either 2 children or no children.
+ * A perfect tree has the same number of levels in the left
+ * andright subtrees, and each node has either 2 children or no children.
  * @tree: Pointer to the root node of the tree to check.
  * Return: 0 if the tree is not perfect, or the level of height if it is.
  */

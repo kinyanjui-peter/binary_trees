@@ -7,7 +7,6 @@
  *
  * Description:
  * If tree is NULL or if nothing is found, return NULL.
- * 
  * Return: Pointer to the node with a value equal to the specified value,
  *         or NULL if no such node exists.
  */

@@ -10,6 +10,11 @@
  */
 int binary_tree_is_heap(const binary_tree_t *tree)
 {
-	/* Replace with the actual implementation */
-	return (tree);
+	int nodes = 0;
+
+    if (tree == NULL)
+        return (0);
+    if (!is_complete(tree, 0, nodes) || !is_heap(tree))
+        return (0);
+    return (1);
 }
